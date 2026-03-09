@@ -1,3 +1,3 @@
-<?php 
-echo 'ELON MUSK'
+<?php
+    header('Location: ./pages/login.php');
 ?>
