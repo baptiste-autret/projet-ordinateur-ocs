@@ -11,7 +11,7 @@ include '../component/header.php'
             placeholder="Saisissez votre identifiant ici" required>
         </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Mot de passe</label>
+        <label for="exampleInputPassword1">Mot de passe !</label>
         <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Saisissez votre mot de passe" required>
     </div>
     <a href=".\inscription.php">Aucun compte</a>
