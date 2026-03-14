@@ -4,7 +4,7 @@ include '../component/header.php'
 
 
 
-page inscription
+<p>page inscription</p>
 
 
 
