@@ -1,26 +1,54 @@
 <?php
-include '../component/header.php'
+include '../component/header.php';
+?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+    $password = $_POST['password'];
+
+    if ($id === 'admin' && $password === 'admin') {
+        echo '<div class="alert alert-success text-center" role="alert">Connexion réussie !</div>';
 ?>
 
-<h2>Connection à la base de donnée</h2>
+        <form id="redirect" action="../index.php" method="POST">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+        </form>
 
-<form>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Identifiant</label>
-        <input type="text" class="form-control" name="id" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Saisissez votre identifiant ici" required>
+        <script>
+            document.getElementById("redirect").submit();
+        </script>
+<?php
+    } else {
+        echo '<div class="alert alert-danger text-center" role="alert">Identifiant ou mot de passe incorrect.</div>';
+    }
+}
+?>
+
+<h1 class="text-center fw-bold mt-2">Connection à la base de donnée</h1>
+
+<div class="my-5 container border border-1 border-muted rounded p-5 mt-5 bg-light">
+    <form method="post" action="./login.php">
+        <div class="form-group mb-4">
+            <label for="inputIdentifiant"><span class="text-decoration-underline fw-bold">Identifiant</span> :</label>
+            <input type="text" class="form-control mt-2" name="id" id="inputIdentifiant"
+                placeholder="Saisissez votre identifiant ici" required>
         </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Mot de passe !</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Saisissez votre mot de passe" required>
-    </div>
-    <a href=".\inscription.php">Aucun compte</a>
-    <button type="submit" class="btn btn-primary">Se connecter</button>
-</form>
+        <div class="form-group">
+            <label for="inputPassword"><span class="text-decoration-underline fw-bold">Mot de passe</span> :</label>
+            <input type="password" class="form-control mt-2" id="inputPassword" name="password" placeholder="Saisissez votre mot de passe" required>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary mr-5 w-100">Se connecter</button>
+        </div>
+    </form>
+
+    <a href="./inscription.php"><button type="button" class="btn btn-danger mr-5 w-100 mt-2">- Aucun compte -</button></a>
+</div>
 
 
 
 
 <?php
 include '../component/footer.php'
-    ?>
+?>
