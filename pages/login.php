@@ -1,6 +1,7 @@
 <?php
 include '../component/header.php';
 ?>
+
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
@@ -24,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h1 class="text-center fw-bold mt-2">Connection à la base de donnée</h1>
+<h1 class="text-center fw-bold mt-2">- Connection à la base de donnée -</h1>
 
 <div class="my-5 container border border-1 border-muted rounded p-5 mt-5 bg-light">
     <form method="post" action="./login.php">
@@ -45,8 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <a href="./inscription.php"><button type="button" class="btn btn-danger mr-5 w-100 mt-2">- Aucun compte -</button></a>
 </div>
-
-
 
 
 <?php
