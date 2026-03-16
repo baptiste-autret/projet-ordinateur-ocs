@@ -1,5 +1,6 @@
 <?php
 include '../component/header.php';
+require_once '../bdd/connexion_bdd.php'
 ?>
 
 <?php
@@ -9,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($id === 'admin' && $password === 'admin') {
         echo '<div class="alert alert-success text-center" role="alert">Connexion réussie !</div>';
+
+        $_SESSION['identifant'] = $id;
 ?>
 
         <form id="redirect" action="../index.php" method="POST">
