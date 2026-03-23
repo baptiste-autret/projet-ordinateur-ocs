@@ -4,9 +4,32 @@ require_once '../bdd/connexion_bdd.php'
 ?>
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];
-    $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+
+    if (!empty($username) && !empty($password)) {
+        $stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE login = ?");
+        
+        if ($stmt) {
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $res = $stmt->get_result();
+
+            if ($res && $res->num_rows === 1) {
+                $utilisateur = $res->fetch_assoc();
+
+                // Vérification du mot de passe en clair
+                if ($password === $utilisateur['mdp']) {
+                    $_SESSION['utilisateur'] = $utilisateur['login'];
+                    header("Location: index.php");
+                    exit;
+                } else {
+                    $error = "Mot de passe incorrect.";
+                }
+            } else {
+                $error = "Nom d'utilisateur incorrect.";
+            }
 
     if ($id === 'admin' && $password === 'admin') {
         echo '<div class="alert alert-success text-center" role="alert">Connexion réussie !</div>';
