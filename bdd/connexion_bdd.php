@@ -6,6 +6,8 @@ $dbname = $env["DBNAME"];
 $user   = $env["LOGIN"];
 $pass   = $env["MDP"];
 
+$conn = new mysqli($host ,$user, $pass , $dbname);
+var_dump($conn);
 try {
 
     $pdo = new PDO(

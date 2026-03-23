@@ -1,18 +1,27 @@
 <?php
 include '../component/header.php';
-require_once '../bdd/connexion_bdd.php'
+require_once '../bdd/connexion_bdd.php';
+
+// Vérifier si une session existe déjà
+if (isset($_SESSION['user'])) {
+    // Détruire toutes les variables de session
+    $_SESSION = [];
+
+    // Relancer une session propre
+    session_start();
+}
 ?>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $login = $_POST['login'];
+    $password = $_POST['password'];
 
-    if (!empty($username) && !empty($password)) {
-        $stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE login = ?");
+    if (!empty($login) && !empty($password)) {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE login = ?");
         
         if ($stmt) {
-            $stmt->bind_param("s", $username);
+            $stmt->bind_param("s", $login);
             $stmt->execute();
             $res = $stmt->get_result();
 
@@ -20,33 +29,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $utilisateur = $res->fetch_assoc();
 
                 // Vérification du mot de passe en clair
-                if ($password === $utilisateur['mdp']) {
-                    $_SESSION['utilisateur'] = $utilisateur['login'];
-                    header("Location: index.php");
+                if ($password === $utilisateur['password']) {
+                    $_SESSION['login'] = $utilisateur['login'];
+                    header("Location: pagePrincipale.php");
                     exit;
                 } else {
-                    $error = "Mot de passe incorrect.";
+                    echo '<div class="alert alert-danger text-center" role="alert">Identifiant ou mot de passe incorrect.</div>';
                 }
             } else {
-                $error = "Nom d'utilisateur incorrect.";
+                echo '<div class="alert alert-danger text-center" role="alert">Identifiant ou mot de passe incorrect.</div>';
             }
-
-    if ($id === 'admin' && $password === 'admin') {
-        echo '<div class="alert alert-success text-center" role="alert">Connexion réussie !</div>';
-
-        $_SESSION['identifant'] = $id;
-?>
-
-        <form id="redirect" action="../index.php" method="POST">
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-        </form>
-
-        <script>
-            document.getElementById("redirect").submit();
-        </script>
-<?php
+            $stmt->close();
+        } else {
+            echo '<div class="alert alert-danger text-center" role="alert">Erreur SQL</div>';
+        }
     } else {
-        echo '<div class="alert alert-danger text-center" role="alert">Identifiant ou mot de passe incorrect.</div>';
+        echo '<div class="alert alert-danger text-center" role="alert">Veuillez remplir tous les champs.</div>';
     }
 }
 ?>
@@ -57,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form method="post" action="./login.php">
         <div class="form-group mb-4">
             <label for="inputIdentifiant"><span class="text-decoration-underline fw-bold">Identifiant</span> :</label>
-            <input type="text" class="form-control mt-2" name="id" id="inputIdentifiant"
+            <input type="text" class="form-control mt-2" name="login" id="inputIdentifiant"
                 placeholder="Saisissez votre identifiant ici" required>
         </div>
         <div class="form-group">
