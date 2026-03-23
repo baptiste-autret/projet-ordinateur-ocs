@@ -2,13 +2,8 @@
 include '../component/header.php';
 require_once '../bdd/connexion_bdd.php';
 
-// Vérifier si une session existe déjà
-if (isset($_SESSION['user'])) {
-    // Détruire toutes les variables de session
+if (isset($_SESSION['login'])) {
     $_SESSION = [];
-
-    // Relancer une session propre
-    session_start();
 }
 ?>
 
@@ -18,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     if (!empty($login) && !empty($password)) {
-        $stmt = $conn->prepare("SELECT * FROM users WHERE login = ?");
+        $stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE login = ?");
         
         if ($stmt) {
             $stmt->bind_param("s", $login);
@@ -29,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $utilisateur = $res->fetch_assoc();
 
                 // Vérification du mot de passe en clair
-                if ($password === $utilisateur['password']) {
+                if ($password === $utilisateur['mdp']) {
                     $_SESSION['login'] = $utilisateur['login'];
-                    header("Location: pagePrincipale.php");
+                    header("Location: ../index.php");
                     exit;
                 } else {
                     echo '<div class="alert alert-danger text-center" role="alert">Identifiant ou mot de passe incorrect.</div>';
