@@ -5,7 +5,7 @@ require_once '../bdd/connexion_bdd.php';
 
 // Rediriger si déjà connecté
 if (isset($_SESSION['login'])) {
-    header("Location: pagePrincipale.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -17,26 +17,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prenom = trim($_POST['prenom']);
     $login = trim($_POST['login']);
     $email = trim($_POST['email']);
-    $password = $_POST['password'];
+    $mdp = $_POST['mdp'];
 
-    if (!empty($nom) && !empty($prenom) && !empty($login) && !empty($email) && !empty($password)) {
+    if (!empty($nom) && !empty($prenom) && !empty($login) && !empty($email) && !empty($mdp)) {
 
         // Vérifier si login ou email existe déjà
-        $stmt = $conn->prepare("SELECT login FROM users WHERE login = ? OR email = ?");
+        $stmt = $conn->prepare("SELECT login, email FROM utilisateurs WHERE login = ? OR email = ?");
         $stmt->bind_param("ss", $login, $email);
         $stmt->execute();
         $res = $stmt->get_result();
+        $row = $res->fetch_assoc();
 
-        if ($res && $res->num_rows > 0) {
-            echo '<div class="alert alert-danger text-center">Le login ou l\'email existe déjà.</div>';
-        } else {
+        if ($res && $row['login'] === $login) {
+            echo '<div class="alert alert-danger text-center">L\'identifiant est déjà utilisée.</div>';
+        } 
+        elseif ($res && $row['email'] === $email) {
+            echo '<div class="alert alert-danger text-center">L\'adresse mail est déjà utilisée.</div>';
+        }
+        else {
             // Insérer les données dans la base sans hash
-            $stmt = $conn->prepare("INSERT INTO users (nom, prenom, login, email, mdp) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param($nom, $prenom, $login, $email, $password);
+            $stmt = $conn->prepare("INSERT INTO utilisateurs (nom, prenom, login, email, mdp) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $nom, $prenom, $login, $email, $mdp);
 
             if ($stmt->execute()) {
-                $_SESSION['login'] = $login;
-                header("Location: pagePrincipale.php");
+                header("Location: login.php");
                 exit();
             } else {
                 echo '<div class="alert alert-danger text-center">Erreur lors de l\'inscription.</div>';
@@ -81,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-group">
             <label><span class="text-decoration-underline fw-bold">Mot de passe</span> :</label>
-            <input type="password" class="form-control mt-2" name="password"
+            <input type="password" class="form-control mt-2" name="mdp"
                 placeholder="Saisissez votre mot de passe" required>
         </div>
 

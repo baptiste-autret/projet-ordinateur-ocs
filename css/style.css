@@ -2,3 +2,25 @@
     background-color: red;
     border: 2px solid black;
 }
+
+#alerteUtilisateur {
+    transition: opacity 0.5s ease;
+}
+
+#alerteUtilisateur.hidding {
+    opacity: 0 !important;
+}
+
+.zone-pdp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdp {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    padding: 0.2vw; 
+    border: 0.3vw solid #ffffff;
+}

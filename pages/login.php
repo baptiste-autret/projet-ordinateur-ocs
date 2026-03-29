@@ -3,7 +3,8 @@ include '../component/header.php';
 require_once '../bdd/connexion_bdd.php';
 
 if (isset($_SESSION['login'])) {
-    $_SESSION = [];
+    header("Location: ../index.php");
+    exit;
 }
 ?>
 

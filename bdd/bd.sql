@@ -41,7 +41,7 @@ CREATE TABLE `utilisateurs` (
 --
 
 INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `email`, `login`, `mdp`) VALUES
-(1, 'A', 'Baptiste', 'caca@mature.com', 'le-b', 'caca');
+(1, 'A', 'b-admin', 'admin@osc.com', 'admin', 'azerty');
 
 --
 -- Index pour les tables déchargées
