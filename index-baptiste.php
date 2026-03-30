@@ -1,0 +1,70 @@
+<?php
+include './component/header.php';
+require_once './bdd/connexion_bdd.php';
+
+if (isset($_SESSION["login"])) {
+    $id = $_SESSION["login"];
+    ?>
+    <div class="d-flex bd-highlight">
+        <div class="p-2 flex-fill bd-highlight border border-dark w-25 bg-dark text-light zone-utilisateur min-vh-100">
+            <div class="zone-pdp">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" class="pdp" alt="">
+            </div>
+            <h2 class="text-center mt-2">- <?= $id ?> -</h2>
+        </div>
+
+
+        <div class="p-2 flex-fill bd-highlight border w-75 min-vh-100">
+            <div class="alert alert-success text-center" id="alerteUtilisateur">Connexion réussie !</div>
+            <h1 class="text-center mt-2">Bienvenue !</h1>
+            <hr>
+
+            <?php
+
+            $toutesInformationsMachines = $con->prepare("SELECT * FROM `info_ordinateurs`");
+            $toutesInformationsMachines->execute();
+            $resultatMachines = $toutesInformationsMachines->get_result();
+            $machines = $resultatMachines->fetch_all();
+
+
+            $countMachines = $con->prepare("SELECT COUNT(id_ordinateur) AS 'Total' FROM `info_ordinateurs`");
+            $countMachines->execute();
+            $resultatCount = $countMachines->get_result();
+            $totalMachine = $resultatCount->fetch_assoc();
+
+            echo "Nombre de machines : " . $totalMachine['Total'];
+
+            ?>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nom du poste</th>
+                        <th>OS</th>
+                        <th>RAM</th>
+                        <th>Stockage</th>
+                        <th>Rôle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($resultatMachines as $uneMachine) {
+                        ?>
+                        <tr>
+                            <td><?= $uneMachine['nom_poste'] ?></td>
+                            <td><?= $uneMachine['OS'] ?></td>
+                            <td><?= $uneMachine['Ram'] ?></td>
+                            <td><?= $uneMachine['Stockage'] ?></td>
+                            <td><?= $uneMachine['Role'] ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <?php
+} else {
+    $id = '';
+    header('Location: ./pages/login.php');
+}
+
+
+include './component/footer.php';

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($nom) && !empty($prenom) && !empty($login) && !empty($email) && !empty($mdp)) {
 
         // Vérifier si login ou email existe déjà
-        $stmt = $conn->prepare("SELECT login, email FROM utilisateurs WHERE login = ? OR email = ?");
+        $stmt = $con->prepare("SELECT login, email FROM utilisateurs WHERE login = ? OR email = ?");
         $stmt->bind_param("ss", $login, $email);
         $stmt->execute();
         $res = $stmt->get_result();
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         else {
             // Insérer les données dans la base sans hash
-            $stmt = $conn->prepare("INSERT INTO utilisateurs (nom, prenom, login, email, mdp) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $con->prepare("INSERT INTO utilisateurs (nom, prenom, login, email, mdp) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $nom, $prenom, $login, $email, $mdp);
 
             if ($stmt->execute()) {

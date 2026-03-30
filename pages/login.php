@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     if (!empty($login) && !empty($password)) {
-        $stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE login = ?");
+        $stmt = $con->prepare("SELECT * FROM utilisateurs WHERE login = ?");
         
         if ($stmt) {
             $stmt->bind_param("s", $login);
