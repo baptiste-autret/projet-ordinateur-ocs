@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 16 mars 2026 à 16:21
+-- Généré le : lun. 27 avr. 2026 à 14:08
 -- Version du serveur : 11.4.2-MariaDB
 -- Version de PHP : 8.3.8
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `bd_projet-osc-abdm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `info_ordinateurs`
+--
+
+CREATE TABLE `info_ordinateurs` (
+  `id_ordinateur` int(11) NOT NULL,
+  `nom_poste` varchar(20) NOT NULL,
+  `OS` varchar(20) NOT NULL,
+  `Ram` int(11) NOT NULL,
+  `Stockage` int(11) NOT NULL,
+  `Role` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `info_ordinateurs`
+--
+
+INSERT INTO `info_ordinateurs` (`id_ordinateur`, `nom_poste`, `OS`, `Ram`, `Stockage`, `Role`) VALUES
+(1, 'B1-DEBIAN', 'Debian 13', 4, 15, 'Client'),
+(2, 'B1-W7', 'Windows 7', 8, 30, 'Client');
 
 -- --------------------------------------------------------
 
@@ -41,11 +64,17 @@ CREATE TABLE `utilisateurs` (
 --
 
 INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `email`, `login`, `mdp`) VALUES
-(1, 'A', 'b-admin', 'admin@osc.com', 'admin', 'azerty');
+(1, 'A', 'Baptiste', 'baptiste@idk.com', 'le-b', 'baba');
 
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `info_ordinateurs`
+--
+ALTER TABLE `info_ordinateurs`
+  ADD PRIMARY KEY (`id_ordinateur`);
 
 --
 -- Index pour la table `utilisateurs`
@@ -56,6 +85,12 @@ ALTER TABLE `utilisateurs`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `info_ordinateurs`
+--
+ALTER TABLE `info_ordinateurs`
+  MODIFY `id_ordinateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
