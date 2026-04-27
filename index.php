@@ -19,9 +19,15 @@ if (isset($_SESSION["login"])) {
                 </button>
             </a>
 
-            <a href="" class="mt-4">
+            <a href="./pages/toutesmachines.php" class="mt-4">
                 <button type="submit" class="btn w-100 btnRedirection">
                     Toutes les machines
+                </button>
+            </a>
+
+            <a href="" class="mt-4">
+                <button type="submit" class="btn w-100 btnRedirection">
+                    Tickets
                 </button>
             </a>
 
@@ -37,47 +43,6 @@ if (isset($_SESSION["login"])) {
             <div class="alert alert-success text-center" id="alerteUtilisateur">Connexion réussie !</div>
             <h1 class="text-center mt-2">Bienvenue !</h1>
             <hr>
-
-            <?php
-
-            $toutesInformationsMachines = $con->prepare("SELECT * FROM `info_ordinateurs`");
-            $toutesInformationsMachines->execute();
-            $resultatMachines = $toutesInformationsMachines->get_result();
-            $machines = $resultatMachines->fetch_all();
-
-
-            $countMachines = $con->prepare("SELECT COUNT(id_ordinateur) AS 'Total' FROM `info_ordinateurs`");
-            $countMachines->execute();
-            $resultatCount = $countMachines->get_result();
-            $totalMachine = $resultatCount->fetch_assoc();
-
-            echo "Nombre de machines : " . $totalMachine['Total'];
-
-            ?>
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Nom du poste</th>
-                        <th>OS</th>
-                        <th>RAM</th>
-                        <th>Stockage</th>
-                        <th>Rôle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($resultatMachines as $uneMachine) {
-                        ?>
-                        <tr>
-                            <td><?= $uneMachine['nom_poste'] ?></td>
-                            <td><?= $uneMachine['OS'] ?></td>
-                            <td><?= $uneMachine['Ram'] ?></td>
-                            <td><?= $uneMachine['Stockage'] ?></td>
-                            <td><?= $uneMachine['Role'] ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
         </div>
     </div>
 <?php

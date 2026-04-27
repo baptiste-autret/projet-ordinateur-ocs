@@ -34,3 +34,7 @@
     color:white;
     font-weight: bold;
 }
+
+.w-70 {
+    width:70% !important;
+}
