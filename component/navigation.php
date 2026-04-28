@@ -12,13 +12,13 @@
         </button>
     </a>
 
-    <a href="../pages/toutesmachines.php" class="mt-4">
+    <a href="../pages/toutesMachines.php" class="mt-4">
         <button type="submit" class="btn w-100 btnRedirection">
             Toutes les machines
         </button>
     </a>
 
-    <a href="" class="mt-4">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScZUZXpnUB3ZyOY2D-E1SJR1TPA61Qd7sCmdTu0nqNPrB3Phw/viewform?usp=publish-editor" class="mt-4">
         <button type="submit" class="btn w-100 btnRedirection">
             Tickets
         </button>

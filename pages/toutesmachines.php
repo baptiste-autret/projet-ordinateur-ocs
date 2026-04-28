@@ -45,7 +45,7 @@ if (isset($_SESSION["login"])) {
                     <?php foreach ($resultatMachines as $uneMachine) {
                         ?>
                         <tr>
-                            <td><?= $uneMachine['nom_poste'] ?></td>
+                            <td><a href="informationMachines.php?id=<?= $uneMachine['id_ordinateur'] ?>" class="text-primary"><?= $uneMachine['nom_poste'] ?></a></td>
                             <td><?= $uneMachine['OS'] ?></td>
                             <td><?= $uneMachine['Ram'] ?></td>
                             <td><?= $uneMachine['Stockage'] ?></td>
