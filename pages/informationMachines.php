@@ -53,7 +53,7 @@ if (isset($_SESSION["login"])) {
                         <td><?= $machine['Stockage'] ?></td>
                     </tr>
                     <tr>
-                        <th>Rôle de la machine</th>
+                        <th>Rôle</th>
                         <td><?= $machine['Role'] ?></td>
                     </tr>
                 </tbody>
