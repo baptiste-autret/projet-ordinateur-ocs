@@ -4,15 +4,17 @@ require_once '../bdd/connexion_bdd.php';
 
 if (isset($_SESSION["login"])) {
     $id = $_SESSION["login"];
-    ?>
+?>
     <div class="d-flex bd-highlight min-vh-100">
 
         <?php require_once '../component/navigation.php'; ?>
 
 
         <div class="p-2 flex-fill bd-highlight border w-75 min-vh-100">
-            <h1 class="text-center mt-2">Bienvenue !</h1>
+            <h1 class="text-center mt-2">Toutes les machines</h1>
             <hr>
+            
+            <br>
 
             <?php
 
@@ -25,11 +27,7 @@ if (isset($_SESSION["login"])) {
             $countMachines = $con->prepare("SELECT COUNT(id_ordinateur) AS 'Total' FROM `info_ordinateurs`");
             $countMachines->execute();
             $resultatCount = $countMachines->get_result();
-            $totalMachine = $resultatCount->fetch_assoc();
-
-            echo "Nombre de machines : " . $totalMachine['Total'];
-
-            ?>
+            $totalMachine = $resultatCount->fetch_assoc();?>
 
             <table class="table table-bordered">
                 <thead>
@@ -43,7 +41,7 @@ if (isset($_SESSION["login"])) {
                 </thead>
                 <tbody>
                     <?php foreach ($resultatMachines as $uneMachine) {
-                        ?>
+                    ?>
                         <tr>
                             <td><a href="informationMachines.php?id=<?= $uneMachine['id_ordinateur'] ?>" class="text-primary"><?= $uneMachine['nom_poste'] ?></a></td>
                             <td><?= $uneMachine['OS'] ?></td>
@@ -54,13 +52,14 @@ if (isset($_SESSION["login"])) {
                     <?php } ?>
                 </tbody>
             </table>
+            <?php echo "Nombre de machines : " . $totalMachine['Total']; ?>
         </div>
     </div>
-    <?php
+<?php
 } else {
     $id = '';
     header('Location: ./pages/login.php');
 }
 
 
-include './component/footer.php';
+include '../component/footer.php';

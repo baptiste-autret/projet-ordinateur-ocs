@@ -34,6 +34,8 @@ if (isset($_SESSION["login"])) {
             </h1>
             <hr>
 
+            <br>
+
             <table class="table table-bordered w-50">
                 <tbody>
                     <tr>

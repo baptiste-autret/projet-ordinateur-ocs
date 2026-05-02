@@ -19,3 +19,17 @@ else {
     alertBox.classList.toggle("hidding");
     alertBox.style.display = "none";
 }
+
+const ctx = document.getElementById('monGraphique');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Windows', 'Debian'],
+        datasets: [{
+            label: 'OS',
+            backgroundColor: '#9bcff5',
+            data: [1, 1]
+        }]
+    }
+});
