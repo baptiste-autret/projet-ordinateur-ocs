@@ -1,35 +1,61 @@
 const alertBox = document.getElementById("alerteUtilisateur");
 
-if (sessionStorage.getItem("alertConnexionFaites") === null) {
-    sessionStorage.setItem("alertConnexionFaites", "false");
-}
+if (alertBox) {
+    if (sessionStorage.getItem("alertConnexionFaites") === null) {
+        sessionStorage.setItem("alertConnexionFaites", "false");
+    }
 
-if (sessionStorage.getItem("alertConnexionFaites") === "false") {
-    setTimeout(() => {
-        alertBox.classList.toggle("hidding");
-
+    if (sessionStorage.getItem("alertConnexionFaites") === "false") {
         setTimeout(() => {
-            alertBox.style.display = "none";
-            sessionStorage.setItem("alertConnexionFaites", "true");
-        }, 500);
+            alertBox.classList.add("hidding");
 
-    }, 5000);
-}
-else {
-    alertBox.classList.toggle("hidding");
-    alertBox.style.display = "none";
+            setTimeout(() => {
+                alertBox.style.display = "none";
+                sessionStorage.setItem("alertConnexionFaites", "true");
+            }, 500);
+
+        }, 5000);
+    } else {
+        alertBox.style.display = "none";
+    }
 }
 
 const ctx = document.getElementById('monGraphique');
 
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Windows', 'Debian'],
-        datasets: [{
-            label: 'OS',
-            backgroundColor: '#9bcff5',
-            data: [1, 1]
-        }]
-    }
-});
+if (ctx) {
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labelsOS,
+            datasets: [{
+                label: 'OS',
+                backgroundColor: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2'],
+                data: dataOS
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+
+const ctx2 = document.getElementById('monGraphique2');
+
+if (ctx2) {
+    new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: labelsClient,
+            datasets: [{
+                label: 'Clients',
+                backgroundColor: ['#59a14f', '#edc949', '#af7aa1', '#ff9da7'],
+                data: dataClient
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}

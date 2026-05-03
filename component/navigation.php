@@ -1,4 +1,4 @@
-<div class="p-2 flex-fill bd-highlight w-25 text-light zone-utilisateur d-flex flex-column min-vh-100"
+<div class="p-2 flex-fill bd-highlight w-25 text-light zone-utilisateur d-flex flex-column vh-100"
     style="background: linear-gradient(rgb(106, 186, 252), rgb(1, 89, 161));; border-right: 3px solid #02518a;">
     <div class="zone-pdp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" class="pdp" alt="">
