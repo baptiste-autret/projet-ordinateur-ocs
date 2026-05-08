@@ -1,5 +1,7 @@
 /* Element globaux */
 
+body { background: #f0f2f5; }
+
 tbody tr td {
     border: 2px dashed rgba(9, 190, 245, 0.5) !important;
     background-color: #dbf0ff9f !important;
@@ -10,7 +12,9 @@ th {
     border: 2px solid rgba(9, 190, 245, 0.5) !important;
 }
 
-
+hr {
+    border: 1px dashed rgb(2, 34, 99) !important;
+}
 
 
 
@@ -46,10 +50,11 @@ th {
 
 /* Boutons de redirection */
 .btnRedirection {
-    background-color: #faf9f9;
     transition: all 0.5s ease;
-    border: 2.5px solid rgba(145, 145, 145, 0.363);
+    background-color: #6c757d;
+    border: 2.5px solid rgba(163, 163, 163, 0.363);
     height: 6vb;
+    color: white;
 }
 
 .btnRedirection:hover {

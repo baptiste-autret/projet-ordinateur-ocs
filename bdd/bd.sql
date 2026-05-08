@@ -60,13 +60,6 @@ CREATE TABLE `utilisateurs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `utilisateurs`
---
-
-INSERT INTO `utilisateurs` (`id`, `nom`, `prenom`, `email`, `login`, `mdp`) VALUES
-(1, 'A', 'Baptiste', 'baptiste@idk.com', 'le-b', 'baba');
-
---
 -- Index pour les tables déchargées
 --
 

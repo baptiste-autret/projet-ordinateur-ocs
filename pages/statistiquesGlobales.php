@@ -14,7 +14,7 @@ while ($row = $resultOS->fetch()) {
 }
 
 $sqlClient = "SELECT Role, COUNT(*) as total FROM info_ordinateurs GROUP BY Role";
-$resultClient = $pdo->query($sqlClient); // ✅ FIX ICI
+$resultClient = $pdo->query($sqlClient);
 
 $labelsClient = [];
 $dataClient = [];
@@ -37,10 +37,12 @@ if (isset($_SESSION["login"])) {
             Connexion réussie !
         </div>
 
-        <h1 class="text-center mt-2">Statistiques globales</h1>
+        <h1 class="text-center mt-2" style="font-weight: 700;">Statistiques globales</h1>
         <hr>
 
-        <div class="container-fluid min-vh-100">
+        
+
+        <div class="container-fluid">
             <div class="row p-4">
 
                 <div class="col-md-6 d-flex justify-content-center">

@@ -1,5 +1,5 @@
-<div class="p-2 flex-fill bd-highlight w-25 text-light zone-utilisateur d-flex flex-column vh-100"
-    style="background: linear-gradient(rgb(106, 186, 252), rgb(1, 89, 161));; border-right: 3px solid #02518a;">
+<div class="sidebar p-2 text-light d-flex flex-column text-bg-dark w-25"
+style="border-right: 5px solid #050505;">
     <div class="zone-pdp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" class="pdp" alt="">
     </div>
@@ -26,7 +26,7 @@
 
     <a href="../pages/deconnexion.php" class="mt-auto">
         <button type="submit" class="btn btn-danger w-100 mb-3">
-            Se déconnecter
+            <i class="bi bi-box-arrow-left"></i> Se déconnecter
         </button>
     </a>
 </div>

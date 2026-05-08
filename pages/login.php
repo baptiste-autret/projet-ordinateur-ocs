@@ -23,9 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($res && $res->num_rows === 1) {
                 $utilisateur = $res->fetch_assoc();
-
-                // Vérification du mot de passe en clair
-                if ($password === $utilisateur['mdp']) {
+    
+                if (password_verify($password, $utilisateur['mdp'])) {
                     $_SESSION['login'] = $utilisateur['login'];
                     header("Location: ../index.php");
                     exit;
@@ -45,29 +44,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h1 class="text-center fw-bold mt-2">- Connection à la base de donnée -</h1>
-
 <div class="my-5 container border border-1 border-muted rounded p-5 mt-5 bg-light">
+    <h1 class="text-center fw-bold mt-2 text-dark">Connexion à DAMB</h1>
+    <hr class="mb-5">
+
+    <?php if (isset($error)): ?>
+        <div class="alert alert-danger text-center"><?= $error ?></div>
+    <?php endif; ?>
+
     <form method="post" action="./login.php">
         <div class="form-group mb-4">
-            <label for="inputIdentifiant"><span class="text-decoration-underline fw-bold">Identifiant</span> :</label>
-            <input type="text" class="form-control mt-2" name="login" id="inputIdentifiant"
-                placeholder="Saisissez votre identifiant ici" required>
-        </div>
-        <div class="form-group">
-            <label for="inputPassword"><span class="text-decoration-underline fw-bold">Mot de passe</span> :</label>
-            <input type="password" class="form-control mt-2" id="inputPassword" name="password" placeholder="Saisissez votre mot de passe" required>
+            <label><span class="fw-bold">Identifiant</span></label>
+            <input type="text" class="form-control form-control-lg mt-2" name="login" required>
         </div>
 
-        <div class="d-flex justify-content-center mt-4">
-            <button type="submit" class="btn btn-primary mr-5 w-100">Se connecter</button>
+        <div class="form-group mb-4">
+            <label><span class="fw-bold">Mot de passe</span></label>
+            <input type="password" class="form-control form-control-lg mt-2" name="password" required>
+        </div>
+
+        <div class="d-flex justify-content-center mt-5">
+            <button type="submit" class="btn btn-dark btn-lg w-100 fw-bold shadow-sm py-3 mt-4">Se connecter</button>
         </div>
     </form>
 
-    <a href="./inscription.php"><button type="button" class="btn btn-danger mr-5 w-100 mt-2">- Aucun compte -</button></a>
+    <div class="text-center mt-4">
+        <p class="text-muted mb-0">Pas encore de compte ? 
+            <a href="./inscription.php" class="text-decoration-none fw-bold">Créer un compte</a>
+        </p>
+    </div>
 </div>
 
-
-<?php
-include '../component/footer.php'
-?>
+<?php include '../component/footer.php'; ?>
